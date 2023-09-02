@@ -1,18 +1,16 @@
 package com.hatepoint.natife.ui
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
-import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
+import com.google.android.material.snackbar.Snackbar
 import com.hatepoint.natife.R
 import com.hatepoint.natife.databinding.ActivityMainBinding
-import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -77,10 +75,15 @@ class MainActivity : AppCompatActivity() {
                                 spanCount = it
                             }
                         }
-
                         is MainState.Error -> {
                             binding.progressBar.visibility = android.view.View.GONE
-                            //showSnackbar(state.error)
+                            binding.errorImageView.visibility = android.view.View.VISIBLE
+                            val snackbar = Snackbar.make(
+                                binding.root,
+                                "Error: ${state.error}",
+                                Snackbar.LENGTH_INDEFINITE
+                            )
+                            snackbar.show()
                         }
 
                         is MainState.Loading -> {
