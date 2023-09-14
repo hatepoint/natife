@@ -14,6 +14,10 @@ class GifActivity : AppCompatActivity() {
         binding = ActivityGifBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        showGif()
+    }
+
+    private fun showGif() {
         Glide.with(this)
             .asGif()
             .load(intent.getStringExtra("gif"))
